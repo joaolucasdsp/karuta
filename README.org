@@ -1,0 +1,12 @@
+#+TITLE: Karuta ✉️
+
+* About
+This is a toy general purpose relational programming language. We are not held accountable for anything that
+might happen if you are crazy enough to use it.
+
+* Requirements
+- [ ] Parsing
+- [ ] Type Checking 
+- [ ] Error Messages
+- [ ] Database Support
+- [ ] Compilation

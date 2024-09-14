@@ -1,0 +1,16 @@
+(library
+ (name CamelotDB)
+ (libraries ppx_protocol_conv_xmlm)
+ (preprocess (pps ppx_deriving.show ppx_deriving.std ppx_protocol_conv)))
+
+(ocamllex lexer)
+
+(menhir
+ (modules parser)
+ (flags --trace))
+ 
+(env
+ (dev
+  (flags
+   (:standard -warn-error -A))))
+
