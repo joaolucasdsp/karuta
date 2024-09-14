@@ -10,3 +10,11 @@ might happen if you are crazy enough to use it.
 - [ ] Error Messages
 - [ ] Database Support
 - [ ] Compilation
+
+* References
+
+- https://users.cs.duke.edu/~junyang/ra2/
+- https://tinman.cs.gsu.edu/~raj/8710/f05/RA.pdf
+- https://reldb.org/c/wp-content/uploads/2017/12/Rel-and-Tutorial-D-Quickstart.pdf
+- https://en.wikipedia.org/wiki/Relational_algebra
+         
