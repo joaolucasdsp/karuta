@@ -1,8 +1,9 @@
 (executable
- (public_name CamelotDB)
+ (public_name Karuta)
  (name main)
- (libraries CamelotDB ppx_protocol_conv_xmlm)
- (preprocess (pps ppx_deriving.show ppx_deriving.std ppx_protocol_conv)))
+ (libraries Karuta);ppx_protocol_conv_xmlm)
+ ;(preprocess (pps ppx_deriving.show ppx_deriving.std ppx_protocol_conv))
+ )
 (env
  (dev
   (flags

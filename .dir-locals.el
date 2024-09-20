@@ -1,0 +1,6 @@
+(add-to-list 'package-directory-list "~/.nix-profile/share/emacs/site-lisp/elpa")
+(add-to-list 'load-path "~/.nix-profile/share/emacs/site-lisp")
+(require 'merlin)
+(add-hook 'tuareg-mode-hook 'merlin-mode t)
+(custom-set-variables '(merlin-command "ocamlmerlin"))
+(require 'ocp-indent)

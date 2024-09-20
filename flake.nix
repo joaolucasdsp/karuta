@@ -2,7 +2,7 @@
   description = "A Nix-flake-based OCaml development environment";
 
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/unstable";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
     flake-utils.url = "github:numtide/flake-utils";
   };
 
@@ -18,11 +18,11 @@
     in
     {
       devShells.default = pkgs.mkShell {
-        packages = with pkgs; [ ocaml ocamlformat ] ++
-          (with pkgs.ocamlPackages; [ dune_3 odoc opam ocaml-lsp menhir utop ]);
+        packages = with pkgs; [ ocaml ocamlformat emacs.pkgs.tuareg ] ++
+          (with pkgs.ocamlPackages; [ dune_3 odoc opam ocaml-lsp menhir utop ocp-indent merlin ]);
 
         shellHook = ''
-          ${pkgs.ocaml}/bin/ocaml --version          
+          ${pkgs.ocaml}/bin/ocaml --version
         '';
       };
     });
