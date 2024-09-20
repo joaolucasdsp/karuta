@@ -1,4 +1,4 @@
-#+TITLE: Karuta ✉️
+#+TITLE: Karuta 🎴
 
 * About
 This is a toy general purpose relational programming language. We are not held accountable for anything that
