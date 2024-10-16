@@ -1,4 +1,4 @@
 # dune files
 _build
 *.opam
-result/*
+result

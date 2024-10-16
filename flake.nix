@@ -204,7 +204,7 @@
               ocamlPackages.utop
               # Libraries
               ocamlPackages.menhir
-              ocamlPackages.batteries              
+              ocamlPackages.batteries
             ];
 
             # Tools from packages
