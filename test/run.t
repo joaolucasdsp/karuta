@@ -1,3 +1,3 @@
 Test `hi` executable
-  $ hi
+  $ karuta
   Hello, Karuta!

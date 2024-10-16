@@ -72,7 +72,7 @@
             src = sources.ocaml;
 
             buildInputs = [
-                # Ocaml package dependencies needed to build go here.
+              # Ocaml package dependencies needed to build go here.
             ];
 
             strictDeps = true;

@@ -1,1 +1,1 @@
-let () = Hello.say_hi ()
+let () = Ast.say_hi ()
