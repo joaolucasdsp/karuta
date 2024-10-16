@@ -203,8 +203,8 @@
               # Fancy REPL thing
               ocamlPackages.utop
               # Libraries
-              # ocamlPackages.menhir
-              # ocamlPackages.batteries              
+              ocamlPackages.menhir
+              ocamlPackages.batteries              
             ];
 
             # Tools from packages
