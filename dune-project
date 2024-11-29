@@ -1,4 +1,5 @@
 (lang dune 3.4)
+(using menhir 2.1)
 (name karuta)
 (license MIT-0)
 
@@ -18,6 +19,6 @@
 (package
  (name karuta)
  (synopsis "A compiler for a statically-typed relational programming language")
- (depends ocaml dune menhir batteries)
+ (depends ocaml dune menhir (batteries (>= 3.8.0)))
  (tags
   (prolog logic compiler relational warren)))

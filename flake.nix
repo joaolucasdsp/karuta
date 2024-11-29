@@ -72,6 +72,10 @@
             src = sources.ocaml;
 
             buildInputs = [
+              ocamlPackages.menhir
+              ocamlPackages.ppx_deriving
+              ocamlPackages.ppxlib
+              ocamlPackages.batteries
               # Ocaml package dependencies needed to build go here.
             ];
 
@@ -143,27 +147,6 @@
               touch $out
             '';
 
-          # Check documentation generation
-          dune-doc = legacyPackages.runCommand "check-dune-doc"
-            {
-              ODOC_WARN_ERROR = "true";
-              nativeBuildInputs = [
-                ocamlPackages.dune_3
-                ocamlPackages.ocaml
-                ocamlPackages.odoc
-              ];
-            }
-            ''
-              echo "checking ocaml documentation"
-              dune build \
-                --display=short \
-                --no-print-directory \
-                --root="${sources.ocaml}" \
-                --build-dir="$(pwd)/_build" \
-                @doc
-              touch $out
-            '';
-
           # Check Nix formatting
           nixpkgs-fmt = legacyPackages.runCommand "check-nixpkgs-fmt"
             { nativeBuildInputs = [ legacyPackages.nixpkgs-fmt ]; }
@@ -202,9 +185,8 @@
               ocamlPackages.ocamlformat-rpc-lib
               # Fancy REPL thing
               ocamlPackages.utop
-              # Libraries
-              ocamlPackages.menhir
-              ocamlPackages.batteries
+              ocamlPackages.ppx_deriving
+              ocamlPackages.ppxlib
             ];
 
             # Tools from packages

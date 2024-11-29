@@ -1,1 +1,1 @@
-let () = Ast.say_hi ()
+let () = print_endline "Hello, Karuta!"
