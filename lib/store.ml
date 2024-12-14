@@ -1,4 +1,5 @@
 module type Layout = sig
+  val code_size : int
   val heap_size : int
   val stack_size : int
   val trail_pdl_size : int
@@ -12,6 +13,12 @@ module type Memory = sig
   val empty : 'a t
   val initialize : 'a t -> int -> 'a -> 'a t
   val get : 'a t -> int -> 'a
+  val heap_start : int
+  val stack_start : int
+
+  (* Code Operations *)
+  val code_get : 'a t -> int -> 'a
+  val code_put : 'a -> int -> 'a t -> 'a t
 
   (* Heap Operations *)
   val heap_get : 'a t -> int -> 'a
@@ -32,12 +39,12 @@ module Make (Layout : Layout) = struct
   let to_list = FT.to_list
   let get = FT.get
   let set = FT.set
-  let mem_size = Layout.heap_size + Layout.stack_size + Layout.trail_pdl_size
 
-  let put (elem : 'a) (index : int) (mem : 'a t) : 'a t =
-    if index <= 0 then
-      failwith "Tried reaching illegal memory region! Ceiling reached: x!"
-    else set mem index elem
+  let mem_size =
+    Layout.code_size + Layout.heap_size + Layout.stack_size
+    + Layout.trail_pdl_size
+
+  let put (elem : 'a) (index : int) (mem : 'a t) : 'a t = set mem index elem
 
   let limited_get (floor : int) (size : int) (mem : 'a t) (index : int) : 'a =
     if index >= floor + size || index < floor then
@@ -58,7 +65,13 @@ module Make (Layout : Layout) = struct
   let rec initialize (heap : 'a t) (size : int) (default : 'a) =
     if size = 0 then heap else initialize (push heap default) (size - 1) default
 
-  let heap_start = 0
+  let code_get (mem : 'a t) (index : int) : 'a =
+    limited_get 0 Layout.code_size mem index
+
+  let code_put (elem : 'a) (index : int) (mem : 'a t) : 'a t =
+    limited_put 0 Layout.code_size elem index mem
+
+  let heap_start = Layout.code_size
 
   let heap_get (mem : 'a t) (index : int) : 'a =
     limited_get heap_start Layout.heap_size mem index
