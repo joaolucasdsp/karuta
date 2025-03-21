@@ -15,6 +15,7 @@ module type Memory = sig
   val get : 'a t -> int -> 'a
   val heap_start : int
   val stack_start : int
+  val mem_size : int
 
   (* Code Operations *)
   val code_get : 'a t -> int -> 'a
@@ -24,14 +25,18 @@ module type Memory = sig
   val heap_get : 'a t -> int -> 'a
   val heap_put : 'a -> int -> 'a t -> 'a t
 
+  (* Stack Operations *)
+  val stack_get : 'a t -> int -> 'a
+  val stack_put : 'a -> int -> 'a t -> 'a t
+
   (* PDL Operations *)
   val pdl_push : 'a -> 'a t -> 'a t
-  val pdl_pop : 'a t -> 'a
+  val pdl_pop : 'a t -> 'a t
   val pdl_top : 'a t -> 'a
   val pdl_empty : 'a t -> bool
 end
 
-module Make (Layout : Layout) = struct
+module Make (Layout : Layout) : Memory = struct
   module FT = BatFingerTree
 
   type 'a t = 'a FT.t
@@ -72,6 +77,9 @@ module Make (Layout : Layout) = struct
     limited_put 0 Layout.code_size elem index mem
 
   let heap_start = Layout.code_size
+  let pdl_tracker = ref (mem_size - 1)
+  let stack_start = heap_start + Layout.heap_size
+  let trail_start = stack_start + Layout.stack_size
 
   let heap_get (mem : 'a t) (index : int) : 'a =
     limited_get heap_start Layout.heap_size mem index
@@ -79,9 +87,11 @@ module Make (Layout : Layout) = struct
   let heap_put (elem : 'a) (index : int) (mem : 'a t) : 'a t =
     limited_put heap_start Layout.heap_size elem index mem
 
-  let pdl_tracker = ref (mem_size - 1)
-  let stack_start = heap_start + Layout.heap_size
-  let trail_start = stack_start + Layout.stack_size
+  let stack_get (mem : 'a t) (index : int) : 'a =
+    limited_get stack_start Layout.stack_size mem index
+
+  let stack_put (elem : 'a) (index : int) (mem : 'a t) : 'a t =
+    limited_put stack_start Layout.stack_size elem index mem
 
   (* TODO: Add top of trail as an argument to be checked*)
   let pdl_push (elem : 'a) (mem : 'a t) : 'a t =

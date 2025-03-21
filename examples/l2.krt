@@ -1,5 +1,9 @@
-siblings[A, B] :-
-    father[Father, A],
-    father[Father, B].
+p[Z, h[Z, W], f[W]]?
 
-father[joaquim, X]?
+q[H, J].
+r[K, L].
+
+p[A, B, C] :-
+    q[A, B],
+    r[B, C].
+
